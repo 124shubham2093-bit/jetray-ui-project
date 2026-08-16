@@ -162,3 +162,49 @@ export const INITIAL_LEADS = [
     notes: "Testing template messaging for festive sales flash catalog broadcasts.",
   },
 ];
+export const leadStats = {
+  totalLeads: 1284,
+  todaysLeads: 42,
+  interested: 318,
+  converted: 96,
+};
+
+export const leadActivity = [
+  { day: "Aug 3", leads: 42 },
+  { day: "Aug 4", leads: 51 },
+  { day: "Aug 5", leads: 47 },
+  { day: "Aug 6", leads: 63 },
+  { day: "Aug 7", leads: 58 },
+  { day: "Aug 8", leads: 71 },
+  { day: "Aug 9", leads: 66 },
+  { day: "Aug 10", leads: 79 },
+  { day: "Aug 11", leads: 73 },
+  { day: "Aug 12", leads: 88 },
+  { day: "Aug 13", leads: 82 },
+  { day: "Aug 14", leads: 94 },
+  { day: "Aug 15", leads: 91 },
+  { day: "Aug 16", leads: 103 },
+];
+
+export const leadSources = [
+  {
+    name: "Facebook",
+    value: 382,
+  },
+  {
+    name: "Google Forms",
+    value: 276,
+  },
+  {
+    name: "Meta",
+    value: 248,
+  },
+  {
+    name: "Website",
+    value: 214,
+  },
+  {
+    name: "Referral",
+    value: 164,
+  },
+];
