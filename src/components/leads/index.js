@@ -4,3 +4,6 @@ export { default as LeadTable } from "./LeadTable";
 export { default as LeadFormModal } from "./LeadFormModal";
 export { default as LeadDetailsModal } from "./LeadDetailsModal";
 export { default as LeadDeleteModal } from "./LeadDeleteModal";
+export { default as LeadStats } from "./LeadStats";
+export { default as LeadActivityChart } from "./LeadActivityChart";
+export { default as LeadSourceChart } from "./LeadSourceChart";
