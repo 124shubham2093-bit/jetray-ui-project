@@ -3,7 +3,12 @@ import { NAV } from "../../data/navigation";
 import SidebarNav from "./SidebarNav";
 import Topbar from "./Topbar";
 import StubPage from "./StubPage";
-import { DashboardPage, VendorsPage, LeadsPage } from "../../pages";
+import {
+  DashboardPage,
+  VendorsPage,
+  LeadsPage,
+  LeadDashboardPage,
+} from "../../pages";
 
 export default function AppShell() {
   const [active, setActive] = useState("dashboard");
@@ -45,6 +50,7 @@ export default function AppShell() {
           {active === "dashboard" && <DashboardPage />}
           {active === "vendors" && <VendorsPage />}
           {active === "leads" && <LeadsPage />}
+          {active === "lead-dashboard" && <LeadDashboardPage />}
           {active !== "dashboard" &&
             active !== "vendors" &&
             active !== "leads" && <StubPage label={active} />}
