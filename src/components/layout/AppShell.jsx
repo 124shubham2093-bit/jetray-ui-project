@@ -8,6 +8,7 @@ import {
   VendorsPage,
   LeadsPage,
   LeadDashboardPage,
+  LeadIntegrationsPage,
 } from "../../pages";
 
 export default function AppShell() {
@@ -51,9 +52,12 @@ export default function AppShell() {
           {active === "vendors" && <VendorsPage />}
           {active === "leads" && <LeadsPage />}
           {active === "lead-dashboard" && <LeadDashboardPage />}
+          {active === "integrations" && <LeadIntegrationsPage />}
           {active !== "dashboard" &&
             active !== "vendors" &&
-            active !== "leads" && <StubPage label={active} />}
+            active !== "leads" &&
+            active !== "lead-dashboard" &&
+            active !== "integrations" && <StubPage label={active} />}
         </main>
       </div>
     </div>
