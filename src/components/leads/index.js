@@ -7,3 +7,4 @@ export { default as LeadDeleteModal } from "./LeadDeleteModal";
 export { default as LeadStats } from "./LeadStats";
 export { default as LeadActivityChart } from "./LeadActivityChart";
 export { default as LeadSourceChart } from "./LeadSourceChart";
+export { default as LeadConnectorCard } from "./LeadConnectorCard";
