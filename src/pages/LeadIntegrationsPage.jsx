@@ -1,168 +1,199 @@
-import React, { useMemo, useState } from "react";
-import { RefreshCw, Search, SlidersHorizontal } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import {
+  LayoutDashboard,
+  List,
+  Globe2,
+} from "lucide-react";
 import { LEAD_INTEGRATIONS } from "../data/leadIntegrations";
-import { LeadConnectorCard } from "../components/leads";
+import {
+  LeadConnectorCard,
+  LeadConnectorConfigModal,
+} from "../components/leads";
+import {
+  getConnectorConfiguration,
+  saveConnectorConfiguration,
+  enableConnector,
+  disableConnector,
+} from "../services/leadConnectorService";
 
 export default function LeadIntegrationsPage() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("ALL");
+  const [connectors, setConnectors] = useState(
+    LEAD_INTEGRATIONS
+  );
 
-  const categories = useMemo(() => {
-    return [
-      "ALL",
-      ...new Set(LEAD_INTEGRATIONS.map((connector) => connector.category)),
-    ];
+  const [selectedConnector, setSelectedConnector] =
+    useState(null);
+
+  const [savedValues, setSavedValues] = useState(null);
+
+  /*
+   * Load saved connector configurations when
+   * the page is opened.
+   */
+  useEffect(() => {
+    const configuredConnectors = LEAD_INTEGRATIONS.map(
+      (connector) => {
+        const configuration =
+          getConnectorConfiguration(connector.id);
+
+        if (configuration) {
+          return {
+            ...connector,
+            configured: true,
+            status: configuration.enabled
+              ? "active"
+              : "disabled",
+          };
+        }
+
+        return {
+          ...connector,
+          configured: false,
+          status: "disabled",
+        };
+      }
+    );
+
+    setConnectors(configuredConnectors);
   }, []);
 
-  const filteredConnectors = useMemo(() => {
-    const search = searchTerm.toLowerCase().trim();
-
-    return LEAD_INTEGRATIONS.filter((connector) => {
-      const matchesSearch =
-        !search ||
-        connector.name.toLowerCase().includes(search) ||
-        connector.description.toLowerCase().includes(search) ||
-        connector.category.toLowerCase().includes(search);
-
-      const matchesCategory =
-        categoryFilter === "ALL" ||
-        connector.category === categoryFilter;
-
-      return matchesSearch && matchesCategory;
-    });
-  }, [searchTerm, categoryFilter]);
-
+  /*
+   * Open connector configuration.
+   */
   const handleConfigure = (connector) => {
-    /*
-     * Configuration modal will be implemented
-     * in the next integration step.
-     */
-    console.log("Configure connector:", connector.id);
+    const configuration =
+      getConnectorConfiguration(connector.id);
+
+    setSelectedConnector(connector);
+    setSavedValues(configuration);
   };
 
-  return (
-    <div className="p-6 space-y-5">
-      {/* Page Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-white text-xl font-bold tracking-tight">
-            Global CRM Source Connectors
-          </h2>
+  /*
+   * Close configuration modal.
+   */
+  const handleCloseModal = () => {
+    setSelectedConnector(null);
+    setSavedValues(null);
+  };
 
-          <p className="text-slate-400 text-xs mt-1 max-w-2xl">
-            Connect external lead generation platforms and automatically
-            bring incoming leads into your CRM.
-          </p>
-        </div>
+  /*
+   * Save connector configuration.
+   */
+  const handleSaveConfiguration = ({
+    connector,
+    values,
+  }) => {
+    saveConnectorConfiguration(
+      connector.id,
+      values
+    );
 
-        <button
-          className="inline-flex items-center justify-center gap-2 bg-slate-800/70 hover:bg-slate-700/70 border border-slate-700/60 text-slate-200 text-xs font-semibold px-4 py-2.5 rounded-lg transition-colors"
-          onClick={() => window.location.reload()}
-        >
-          <RefreshCw size={14} />
-          Refresh
-        </button>
-      </div>
-
-      {/* Info Banner */}
-      <div className="bg-violet-600/10 border border-violet-500/20 rounded-2xl p-4">
-        <div className="flex items-start gap-3">
-          <div className="w-9 h-9 rounded-lg bg-violet-600/15 flex items-center justify-center shrink-0">
-            <SlidersHorizontal
-              size={17}
-              className="text-violet-400"
-            />
-          </div>
-
-          <div>
-            <p className="text-white text-xs font-semibold">
-              Connect your lead sources
-            </p>
-
-            <p className="text-slate-400 text-xs leading-5 mt-1">
-              Configure a connector to start receiving leads from
-              advertising platforms, B2B directories, forms, webhooks,
-              and custom developer endpoints.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Filters */}
-      <div className="bg-[#131a2e] border border-slate-800/70 rounded-2xl p-4">
-        <div className="flex flex-col md:flex-row gap-3">
-          {/* Search */}
-          <div className="relative flex-1">
-            <Search
-              size={15}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"
-            />
-
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(event) =>
-                setSearchTerm(event.target.value)
-              }
-              placeholder="Search connectors..."
-              className="w-full bg-[#0d1324] border border-slate-800 rounded-lg pl-9 pr-3 py-2.5 text-xs text-white placeholder:text-slate-600 outline-none focus:border-violet-500/50"
-            />
-          </div>
-
-          {/* Category */}
-          <select
-            value={categoryFilter}
-            onChange={(event) =>
-              setCategoryFilter(event.target.value)
+    setConnectors((currentConnectors) =>
+      currentConnectors.map((currentConnector) =>
+        currentConnector.id === connector.id
+          ? {
+              ...currentConnector,
+              configured: true,
+              status: "active",
             }
-            className="bg-[#0d1324] border border-slate-800 rounded-lg px-3 py-2.5 text-xs text-slate-300 outline-none focus:border-violet-500/50"
-          >
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category === "ALL" ? "All Categories" : category}
-              </option>
-            ))}
-          </select>
-        </div>
+          : currentConnector
+      )
+    );
+
+    setSelectedConnector(null);
+    setSavedValues(null);
+  };
+  /*
+   * Toggle connector enabled / disabled state.
+   */
+  const handleToggleConnector = (connector) => {
+    if (!connector.configured) {
+      return;
+    }
+
+    const isActive = connector.status === "active";
+
+    if (isActive) {
+      disableConnector(connector.id);
+    } else {
+      enableConnector(connector.id);
+    }
+
+    setConnectors((currentConnectors) =>
+      currentConnectors.map((currentConnector) =>
+        currentConnector.id === connector.id
+          ? {
+              ...currentConnector,
+              status: isActive
+                ? "disabled"
+                : "active",
+            }
+          : currentConnector
+      )
+    );
+  };
+  return (
+    <div className="p-6">
+      {/* Page Header */}
+      <div>
+        <h2 className="text-white text-xl font-bold tracking-tight">
+          Global CRM Source Connectors
+        </h2>
+
+        <p className="text-slate-400 text-xs mt-1">
+          Configure platform-wide integration credentials and webhook
+          endpoints to sync leads automatically.
+        </p>
       </div>
 
-      {/* Connector Count */}
-      <div className="flex items-center justify-between">
-        <p className="text-slate-400 text-xs">
-          Showing{" "}
-          <span className="text-white font-semibold">
-            {filteredConnectors.length}
-          </span>{" "}
-          connector{filteredConnectors.length !== 1 ? "s" : ""}
-        </p>
+      {/* CRM Tabs */}
+      <div className="bg-[#12121a] border border-slate-800/70 rounded-sm p-2 mt-6">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-slate-700 text-slate-400 text-[10px] font-semibold"
+          >
+            <LayoutDashboard size={11} />
+            Dashboard
+          </button>
 
-        <p className="text-slate-500 text-[11px]">
-          Global CRM integrations
-        </p>
+          <button
+            type="button"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-slate-700 text-slate-400 text-[10px] font-semibold"
+          >
+            <List size={11} />
+            All Leads
+          </button>
+
+          <button
+            type="button"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-violet-600 text-white text-[10px] font-semibold"
+          >
+            <Globe2 size={11} />
+            Global Connectors
+          </button>
+        </div>
       </div>
 
       {/* Connector Cards */}
-      {filteredConnectors.length > 0 ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5">
-          {filteredConnectors.map((connector) => (
-            <LeadConnectorCard
-              key={connector.id}
-              connector={connector}
-              onConfigure={handleConfigure}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="bg-[#131a2e] border border-slate-800/70 rounded-2xl py-16 text-center">
-          <p className="text-white text-sm font-semibold">
-            No connectors found
-          </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-5">
+        {connectors.map((connector) => (
+          <LeadConnectorCard
+            key={connector.id}
+            connector={connector}
+            onConfigure={handleConfigure}
+            onToggle={handleToggleConnector}
+          />
+        ))}
+      </div>
 
-          <p className="text-slate-500 text-xs mt-1">
-            Try changing your search or category filter.
-          </p>
-        </div>
-      )}
+      {/* Configuration Modal */}
+      <LeadConnectorConfigModal
+        connector={selectedConnector}
+        savedValues={savedValues}
+        onClose={handleCloseModal}
+        onSave={handleSaveConfiguration}
+      />
     </div>
   );
 }

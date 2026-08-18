@@ -8,3 +8,4 @@ export { default as LeadStats } from "./LeadStats";
 export { default as LeadActivityChart } from "./LeadActivityChart";
 export { default as LeadSourceChart } from "./LeadSourceChart";
 export { default as LeadConnectorCard } from "./LeadConnectorCard";
+export { default as LeadConnectorConfigModal } from "./LeadConnectorConfigModal";
