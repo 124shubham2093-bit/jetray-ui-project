@@ -11,6 +11,7 @@ import {
   Code2,
   Layers3,
   Settings2,
+  Power,
 } from "lucide-react";
 
 const ICONS = {
@@ -29,88 +30,121 @@ const ICONS = {
 export default function LeadConnectorCard({
   connector,
   onConfigure,
+  onToggle,
 }) {
   const Icon = ICONS[connector.icon] || Layers3;
 
-  const isActive = connector.status === "active";
+  const isConfigured = connector.configured === true;
+  const isActive =
+    isConfigured && connector.status === "active";
 
   return (
-    <div className="bg-[#131a2e] border border-slate-800/70 rounded-2xl p-5 flex flex-col min-h-[285px] hover:border-slate-700 transition-colors">
+    <div className="bg-[#15141b] border border-slate-800/70 rounded-sm p-4 min-h-[190px] flex flex-col">
       {/* Header */}
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-start gap-3 min-w-0">
-          <div className="w-11 h-11 rounded-xl bg-violet-600/10 border border-violet-500/20 flex items-center justify-center shrink-0">
-            <Icon
-              size={21}
-              className="text-violet-400"
-              strokeWidth={1.8}
-            />
-          </div>
-
-          <div className="min-w-0">
-            <h3 className="text-white text-sm font-semibold truncate">
-              {connector.name}
-            </h3>
-
-            <span className="inline-flex mt-1.5 text-[10px] font-medium text-slate-500 bg-slate-800/70 px-2 py-1 rounded-full">
-              {connector.category}
-            </span>
-          </div>
-        </div>
-
-        {/* Status */}
-        <span
-          className={`inline-flex items-center gap-1.5 text-[10px] font-semibold shrink-0 ${
-            isActive ? "text-emerald-400" : "text-slate-500"
-          }`}
-        >
-          <span
-            className={`w-1.5 h-1.5 rounded-full ${
-              isActive ? "bg-emerald-400" : "bg-slate-600"
-            }`}
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <Icon
+            size={17}
+            className="text-violet-400 shrink-0"
+            strokeWidth={1.8}
           />
 
-          {isActive ? "Active" : "Disabled"}
+          <h3 className="text-slate-200 text-xs font-semibold truncate">
+            {connector.name}
+          </h3>
+        </div>
+
+        <span
+          className={`text-[8px] font-semibold px-2 py-0.5 rounded-full shrink-0 ${
+            isActive
+              ? "bg-emerald-500/10 text-emerald-400"
+              : "bg-slate-700/80 text-slate-200"
+          }`}
+        >
+          {isActive ? "ACTIVE" : "DISABLED"}
         </span>
       </div>
 
       {/* Description */}
-      <p className="text-slate-400 text-xs leading-5 mt-4">
+      <p className="text-slate-400 text-[10px] leading-4 mt-4">
         {connector.description}
       </p>
 
+      {/* Divider */}
+      <div className="border-t border-slate-700/70 mt-3" />
+
       {/* Metrics */}
-      <div className="grid grid-cols-2 gap-3 mt-5">
-        <div className="bg-[#0d1324] border border-slate-800/60 rounded-xl p-3">
-          <p className="text-[10px] text-slate-500 font-medium">
-            LAST SYNC
+      <div className="grid grid-cols-2 gap-4 mt-3">
+        <div>
+          <p className="text-slate-300 text-[9px] font-medium">
+            Last Sync:
           </p>
 
-          <p className="text-white text-xs font-semibold mt-1">
+          <p className="text-slate-400 text-[9px] mt-0.5">
             {connector.lastSync}
           </p>
         </div>
 
-        <div className="bg-[#0d1324] border border-slate-800/60 rounded-xl p-3">
-          <p className="text-[10px] text-slate-500 font-medium">
-            IMPORTED LEADS
+        <div>
+          <p className="text-slate-300 text-[9px] font-medium">
+            Imported Leads:
           </p>
 
-          <p className="text-white text-xs font-semibold mt-1">
+          <p className="text-slate-400 text-[9px] mt-0.5">
             {connector.importedLeads.toLocaleString()}
           </p>
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="mt-auto pt-5">
+      {/* Status */}
+      <div className="flex items-center gap-1.5 mt-2">
+        <span className="text-slate-300 text-[9px]">
+          Status:
+        </span>
+
+        <span
+          className={`w-1.5 h-1.5 rounded-full ${
+            isActive
+              ? "bg-emerald-400"
+              : "bg-slate-500"
+          }`}
+        />
+
+        <span className="text-slate-400 text-[9px]">
+          {isActive ? "Active" : "Disabled"}
+        </span>
+      </div>
+
+      {/* Actions */}
+      <div className="flex items-center gap-2 mt-auto pt-3">
+        {/* Configure */}
         <button
+          type="button"
           onClick={() => onConfigure(connector)}
-          className="w-full flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors"
+          className={`h-7 border border-emerald-500/50 hover:border-emerald-400 hover:bg-emerald-500/5 rounded-sm flex items-center justify-center gap-1.5 text-emerald-400 text-[9px] font-medium transition-colors ${
+            isConfigured ? "flex-1" : "w-full"
+          }`}
         >
-          <Settings2 size={14} />
-          Configure Global Connector
+          <Settings2 size={11} />
+          Configure
         </button>
+
+        {/* Enable / Disable */}
+        {isConfigured && (
+          <button
+            type="button"
+            onClick={() => onToggle(connector)}
+            className={`h-7 px-3 rounded-sm border flex items-center justify-center gap-1.5 text-[9px] font-medium transition-colors ${
+              isActive
+                ? "border-amber-500/40 text-amber-400 hover:bg-amber-500/10"
+                : "border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/10"
+            }`}
+          >
+            <Power size={11} />
+
+            {isActive ? "Disable" : "Enable"}
+          </button>
+        )}
       </div>
     </div>
   );
