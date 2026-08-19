@@ -6,3 +6,8 @@ export { default as VendorsPage } from "./VendorsPage";
 export { default as LeadsPage } from "./LeadsPage";
 export { default as LeadDashboardPage } from "./LeadDashboardPage";
 export { default as LeadIntegrationsPage } from "./LeadIntegrationsPage";
+export { default as RecurringStripeSubscriptionsPage } from "./RecurringStripeSubscriptionsPage";
+export { default as ManualPrepaidSubscriptionsPage } from "./ManualPrepaidSubscriptionsPage";
+export { default as LocalFilesMediaPage } from "./LocalFilesMediaPage";
+export { default as TranslationsPage } from "./TranslationsPage";
+export { default as PagesPage } from "./PagesPage";
