@@ -14,7 +14,12 @@ import {
   LocalFilesMediaPage,
   TranslationsPage,
   PagesPage,
-
+  GeneralConfigurationPage,
+  UserVendorConfigurationPage,
+  CurrencyConfigurationPage,
+  PaymentGatewaysConfigurationPage,
+  SubscriptionPlansConfigurationPage,
+  EmailConfigurationPage,
 } from "../../pages";
 
 export default function AppShell() {
@@ -126,6 +131,35 @@ export default function AppShell() {
           {active === "pages" && (
             <PagesPage />
           )}
+          {/* General Configuration */}
+          {active === "general" && (
+            <GeneralConfigurationPage />
+          )}
+
+          {/* User & Vendor Configuration */}
+          {active === "user-vendor" && (
+            <UserVendorConfigurationPage />
+          )}
+
+          {/* Currency Configuration */}
+          {active === "currency" && (
+            <CurrencyConfigurationPage />
+          )}
+
+          {/* Payment Gateways Configuration */}
+          {active === "payment-gateways" && (
+            <PaymentGatewaysConfigurationPage />
+          )}
+
+          {/* Subscription Plans Configuration */}
+          {active === "subscription-plans" && (
+            <SubscriptionPlansConfigurationPage />
+          )}
+
+          {/* Email Configuration */}
+          {active === "email" && (
+            <EmailConfigurationPage />
+          )}
 
           {/* Fallback */}
           {active !== "dashboard" &&
@@ -137,7 +171,13 @@ export default function AppShell() {
             active !== "manual-prepaid" &&
             active !== "files" &&
             active !== "translations" &&
-            active !== "pages" && (
+            active !== "pages" &&
+            active !== "general" &&
+            active !== "user-vendor" &&
+            active !== "currency" &&
+            active !== "payment-gateways" &&
+            active !== "subscription-plans" &&
+            active !== "email" && (
               <StubPage label={active} />
             )}
         </main>
