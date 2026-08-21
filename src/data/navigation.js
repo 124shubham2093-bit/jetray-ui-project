@@ -1,6 +1,6 @@
 import {
   LayoutDashboard, Users, Share2, Filter, CreditCard,
-  FolderOpen, Languages, FileText, Settings
+  FolderOpen, Languages, FileText, Settings, Package
 } from "lucide-react";
 
 export const NAV = [
@@ -31,6 +31,18 @@ export const NAV = [
   { key: "files", label: "Local Files & Media", icon: FolderOpen },
   { key: "translations", label: "Translations", icon: Languages },
   { key: "pages", label: "Pages", icon: FileText },
+  {
+    key: "modules",
+    label: "Platform Modules",
+    icon: Package,
+    expandable: true,
+    children: [
+      { key: "platform-modules", label: "All Modules" },
+      { key: "credit-system", label: "Credit System" },
+      { key: "plan-addons", label: "Plan Addon Control" },
+      { key: "license-info", label: "License Information" },
+    ],
+  },
   {
     key: "configurations",
     label: "Configurations",

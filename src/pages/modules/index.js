@@ -1,0 +1,12 @@
+export { default as AutoUpdaterModulePage } from "./AutoUpdaterModulePage";
+export { default as BirthdayGreetingsModulePage } from "./BirthdayGreetingsModulePage";
+export { default as WebChatWidgetModulePage } from "./WebChatWidgetModulePage";
+export { default as DripCampaignModulePage } from "./DripCampaignModulePage";
+export { default as GoogleSheetImportModulePage } from "./GoogleSheetImportModulePage";
+export { default as GoogleSheetsScriptModulePage } from "./GoogleSheetsScriptModulePage";
+export { default as MultiAIProvidersModulePage } from "./MultiAIProvidersModulePage";
+export { default as InstagramFacebookChatModulePage } from "./InstagramFacebookChatModulePage";
+export { default as TrialSystemModulePage } from "./TrialSystemModulePage";
+export { default as CustomPlansManagerModulePage } from "./CustomPlansManagerModulePage";
+export { default as WhatsAppDataExportModulePage } from "./WhatsAppDataExportModulePage";
+export { default as TaskManagerTodoModulePage } from "./TaskManagerTodoModulePage";

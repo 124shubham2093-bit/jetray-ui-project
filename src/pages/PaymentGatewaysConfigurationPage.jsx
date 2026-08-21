@@ -23,12 +23,14 @@ const DEFAULTS = {
     enabled: false,
     keyId: "",
     keySecret: "",
+    webhookSecret: "",
     mode: "test",
   },
   paypal: {
     enabled: false,
     clientId: "",
     clientSecret: "",
+    webhookId: "",
     mode: "sandbox",
   },
 };
@@ -393,6 +395,23 @@ export default function PaymentGatewaysConfigurationPage() {
               />
             </div>
 
+            {/* Webhook Secret */}
+            <div>
+              <Label htmlFor="rp-webhook-secret">Webhook Secret</Label>
+              <SecretInput
+                id="rp-webhook-secret"
+                value={values.razorpay.webhookSecret || ""}
+                onChange={(e) =>
+                  handleField(
+                    "razorpay",
+                    "webhookSecret",
+                    e.target.value
+                  )
+                }
+                placeholder="Enter webhook secret"
+              />
+            </div>
+
             {/* Mode */}
             <div>
               <Label htmlFor="rp-mode">Mode</Label>
@@ -453,6 +472,23 @@ export default function PaymentGatewaysConfigurationPage() {
                   )
                 }
                 placeholder="Enter PayPal client secret"
+              />
+            </div>
+
+            {/* Webhook ID */}
+            <div>
+              <Label htmlFor="pp-webhook-id">Webhook ID</Label>
+              <SecretInput
+                id="pp-webhook-id"
+                value={values.paypal.webhookId || ""}
+                onChange={(e) =>
+                  handleField(
+                    "paypal",
+                    "webhookId",
+                    e.target.value
+                  )
+                }
+                placeholder="Enter webhook ID"
               />
             </div>
 

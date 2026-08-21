@@ -23,3 +23,10 @@ export { default as SocialLoginConfigurationPage } from "./SocialLoginConfigurat
 export { default as SetupIntegrationsConfigurationPage } from "./SetupIntegrationsConfigurationPage";
 export { default as MiscConfigurationPage } from "./MiscConfigurationPage";
 export { default as WhatsAppOnboardingPage } from "./WhatsAppOnboardingPage";
+
+export { default as PlatformModulesPage } from "./PlatformModulesPage";
+export { default as CreditSystemPage } from "./CreditSystemPage";
+export { default as PlanAddonControlPage } from "./PlanAddonControlPage";
+export { default as LicenseInformationPage } from "./LicenseInformationPage";
+
+export * from "./modules";

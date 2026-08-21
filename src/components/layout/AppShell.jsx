@@ -24,6 +24,10 @@ import {
   SetupIntegrationsConfigurationPage,
   MiscConfigurationPage,
   WhatsAppOnboardingPage,
+  PlatformModulesPage,
+  CreditSystemPage,
+  PlanAddonControlPage,
+  LicenseInformationPage,
 } from "../../pages";
 
 export default function AppShell() {
@@ -185,6 +189,26 @@ export default function AppShell() {
             <WhatsAppOnboardingPage />
           )}
 
+          {/* Platform Modules */}
+          {(active === "modules" || active === "platform-modules") && (
+            <PlatformModulesPage initialTab="modules" />
+          )}
+
+          {/* Credit System */}
+          {active === "credit-system" && (
+            <CreditSystemPage />
+          )}
+
+          {/* Plan Addon Control */}
+          {active === "plan-addons" && (
+            <PlanAddonControlPage />
+          )}
+
+          {/* License Information */}
+          {active === "license-info" && (
+            <LicenseInformationPage />
+          )}
+
           {/* Fallback */}
           {active !== "dashboard" &&
             active !== "vendors" &&
@@ -196,6 +220,11 @@ export default function AppShell() {
             active !== "files" &&
             active !== "translations" &&
             active !== "pages" &&
+            active !== "modules" &&
+            active !== "platform-modules" &&
+            active !== "credit-system" &&
+            active !== "plan-addons" &&
+            active !== "license-info" &&
             active !== "general" &&
             active !== "user-vendor" &&
             active !== "currency" &&
