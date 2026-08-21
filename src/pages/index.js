@@ -19,3 +19,7 @@ export { default as CurrencyConfigurationPage } from "./CurrencyConfigurationPag
 export { default as PaymentGatewaysConfigurationPage } from "./PaymentGatewaysConfigurationPage";
 export { default as SubscriptionPlansConfigurationPage } from "./SubscriptionPlansConfigurationPage";
 export { default as EmailConfigurationPage } from "./EmailConfigurationPage";
+export { default as SocialLoginConfigurationPage } from "./SocialLoginConfigurationPage";
+export { default as SetupIntegrationsConfigurationPage } from "./SetupIntegrationsConfigurationPage";
+export { default as MiscConfigurationPage } from "./MiscConfigurationPage";
+export { default as WhatsAppOnboardingPage } from "./WhatsAppOnboardingPage";

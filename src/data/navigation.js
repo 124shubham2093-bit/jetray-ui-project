@@ -43,6 +43,10 @@ export const NAV = [
       { key: "payment-gateways", label: "Payment Gateways" },
       { key: "subscription-plans", label: "Subscription Plans" },
       { key: "email", label: "Email" },
+      { key: "social-login", label: "Social Login" },
+      { key: "setup-integrations", label: "Setup & Integrations" },
+      { key: "misc", label: "Misc" },
+      { key: "whatsapp-onboarding", label: "WhatsApp Onboarding" },
     ],
   },
 ];

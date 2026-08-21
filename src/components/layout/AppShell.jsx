@@ -20,6 +20,10 @@ import {
   PaymentGatewaysConfigurationPage,
   SubscriptionPlansConfigurationPage,
   EmailConfigurationPage,
+  SocialLoginConfigurationPage,
+  SetupIntegrationsConfigurationPage,
+  MiscConfigurationPage,
+  WhatsAppOnboardingPage,
 } from "../../pages";
 
 export default function AppShell() {
@@ -161,6 +165,26 @@ export default function AppShell() {
             <EmailConfigurationPage />
           )}
 
+          {/* Social Login Configuration */}
+          {active === "social-login" && (
+            <SocialLoginConfigurationPage />
+          )}
+
+          {/* Setup & Integrations Configuration */}
+          {active === "setup-integrations" && (
+            <SetupIntegrationsConfigurationPage />
+          )}
+
+          {/* Misc Configuration */}
+          {active === "misc" && (
+            <MiscConfigurationPage />
+          )}
+
+          {/* WhatsApp Onboarding Configuration */}
+          {active === "whatsapp-onboarding" && (
+            <WhatsAppOnboardingPage />
+          )}
+
           {/* Fallback */}
           {active !== "dashboard" &&
             active !== "vendors" &&
@@ -177,7 +201,11 @@ export default function AppShell() {
             active !== "currency" &&
             active !== "payment-gateways" &&
             active !== "subscription-plans" &&
-            active !== "email" && (
+            active !== "email" &&
+            active !== "social-login" &&
+            active !== "setup-integrations" &&
+            active !== "misc" &&
+            active !== "whatsapp-onboarding" && (
               <StubPage label={active} />
             )}
         </main>
