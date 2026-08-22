@@ -30,7 +30,7 @@ import {
   LicenseInformationPage,
 } from "../../pages";
 
-export default function AppShell() {
+export default function AppShell({ onVendor }) {
   const [active, setActive] = useState("dashboard");
 
   const getActiveLabel = () => {
@@ -88,6 +88,7 @@ export default function AppShell() {
               ? "Dashboard"
               : currentLabel
           }
+          onVendor={onVendor}
         />
 
         <main className="flex-1 overflow-y-auto">

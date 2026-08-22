@@ -1,0 +1,13 @@
+export { default as VendorDashboardPage } from "./VendorDashboardPage";
+export { default as VendorQRCodePage } from "./VendorQRCodePage";
+export { default as VendorInboxPage } from "./VendorInboxPage";
+export { default as VendorContactsPage } from "./VendorContactsPage";
+export { default as VendorTemplatesPage } from "./VendorTemplatesPage";
+export { default as VendorCampaignsPage } from "./VendorCampaignsPage";
+export { default as VendorLeadsCRMPage } from "./VendorLeadsCRMPage";
+export { default as VendorAutomationsPage } from "./VendorAutomationsPage";
+export { default as VendorTeamMembersPage } from "./VendorTeamMembersPage";
+export { default as VendorSettingsGeneralPage } from "./VendorSettingsGeneralPage";
+export { default as VendorCloudAPISetupPage } from "./VendorCloudAPISetupPage";
+export { default as VendorAIBotPage } from "./VendorAIBotPage";
+export { default as VendorDeveloperAPIPage } from "./VendorDeveloperAPIPage";
